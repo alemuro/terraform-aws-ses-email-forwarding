@@ -1,7 +1,7 @@
 resource "cloudflare_record" "dkim" {
   domain = var.domain
   name   = "${element(aws_ses_domain_dkim.dkim.dkim_tokens, count.index)}._domainkey.${var.domain}"
-  value  = "${element(aws_ses_domain_dkim.dkim.dkim_tokens, count.index)}.dkim.${var.domain}"
+  value  = "${element(aws_ses_domain_dkim.dkim.dkim_tokens, count.index)}.dkim.amazonses.com"
   type   = "CNAME"
   ttl    = 600
 
