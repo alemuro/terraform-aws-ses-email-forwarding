@@ -1,5 +1,5 @@
 variable "prefix" {
-  default = "email-forward"
+  default     = "email-forward"
   description = "All resources will be tagged using this prefix name"
 }
 
