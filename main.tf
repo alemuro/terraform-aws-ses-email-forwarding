@@ -4,6 +4,10 @@ data "archive_file" "zipit" {
   output_path = "${local.code_file_path}.zip"
 }
 
+/** AWS account id */
+data "aws_caller_identity" "current" {}
+
+
 /** Lambda Components */
 
 resource "aws_iam_policy" "lambda_policy" {
@@ -31,7 +35,7 @@ resource "aws_iam_policy" "lambda_policy" {
                 "ses:SendRawEmail"
             ],
             "Resource": [
-                "arn:aws:ses:eu-west-1:426038205737:identity/*"
+                "arn:aws:ses:${var.aws_region}:${data.aws_caller_identity.current.account_id}:identity/*"
             ]
         }
     ]
@@ -57,7 +61,6 @@ resource "aws_iam_role" "lambda_role" {
   ]
 }
 EOF
-
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_logs_policy_attachment" {
@@ -108,7 +111,6 @@ resource "aws_ses_receipt_rule_set" "fw_rules" {
 resource "aws_ses_active_receipt_rule_set" "main" {
   rule_set_name = local.rule_set_name
 }
-
 
 resource "aws_ses_receipt_rule" "fw" {
   name          = var.prefix
