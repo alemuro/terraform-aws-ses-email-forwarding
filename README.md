@@ -15,6 +15,7 @@ https://aws.amazon.com/blogs/messaging-and-targeting/forward-incoming-email-to-a
 |--------------------|--------|----------|-----------------|------------------------------------------------------|
 | `s3_bucket`        | String | Yes      |                 | S3 Bucket where emails will be stored                |
 | `s3_bucket_prefix` | String | Yes      |                 | Path inside the bucket where emails will be stored   |
+| `mail_targets`     | Liat   | Yes      |                 | Email addresses that can be sent to                  |
 | `mail_sender`      | String | Yes      |                 | Email used to send messages from (when forwarding)   |
 | `mail_recipient`   | String | Yes      |                 | Email used to send messages to (when forwarding)     |
 | `domain`           | String | Yes      |                 | Domain to configure (ex: aleix.cloud)                |
@@ -36,15 +37,22 @@ I can use this module to register this email through an existing email, and send
 
 ```
 module "ses-email-forwarding" {
-    source = "git@github.com:alemuro/terraform-ses-email-forwarding.git"
+    source = "git@github.com:superdug/terraform-aws-ses-email-forwarding.git"
 
-    dns_provider     = "cloudflare"
-    domain           = "aleix.cloud"
-    s3_bucket        = "amurtra"
+    dns_provider     = "aws"
+    domain           = "amiblocked.io"
+    s3_bucket        = "amiblocked.io.emails"
     s3_bucket_prefix = "emails"
-    mail_sender      = "hello@aleix.cloud"
-    mail_recipient   = "xxxxx@gmail.com"
-    aws_region       = "eu-west-1"
+    mail_targets     = [
+                            "test@amiblocked.io", 
+                            "administrator@amiblocked.io", 
+                            "hostmaster@amiblocked.io", 
+                            "postmaster@amiblocked.io", 
+                            "webmaster@amiblocked.io", 
+                            "admin@amiblocked.io"
+                    ]
+    mail_sender      = "postmaster@amiblocked.io"
+    mail_recipient   = "fluentstream@dugnet.com"
 }
 ```
 
