@@ -41,6 +41,5 @@ variable "dns_provider" {
 }
 
 variable "lambda_env" {
-  type = "list"
-  default = ["list@example.com"]
+  type = list
 }
