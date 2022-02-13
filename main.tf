@@ -103,6 +103,34 @@ resource "aws_s3_bucket_acl" "example" {
   acl = "private"
 }
 
+data "aws_iam_policy_document" "s3" {
+  statement {
+    sid = "GiveSESPermissionToWriteEmail"
+
+    effect = "Allow"
+
+    principals {
+      identifiers = ["ses.amazonaws.com"]
+      type        = "Service"
+    }
+
+    actions = ["s3:PutObject"]
+
+    resources = ["${aws_s3_bucket.default.arn}/*"]
+
+    condition {
+      test     = "StringEquals"
+      values   = [data.aws_caller_identity.current.account_id]
+      variable = "aws:Referer"
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "default" {
+  bucket = aws_s3_bucket.emailBucket.id
+  policy = data.aws_iam_policy_document.s3.json
+}
+
 resource "aws_lambda_permission" "allow_ses" {
   statement_id  = "GiveSESPermissionToInvokeFunction"
   action        = "lambda:InvokeFunction"
