@@ -50,7 +50,7 @@ module "ses-email-forwarding" {
     s3_bucket_prefix = "emails"
     mail_targets     = ["test@amiblocked.io", "administrator@amiblocked.io", "hostmaster@amiblocked.io", "postmaster@amiblocked.io", "webmaster@amiblocked.io", "admin@amiblocked.io"]
     mail_sender      = "postmaster@amiblocked.io"
-    mail_recipient   = "fluentstream@dugnet.com"
+    mail_recipient   = "hello@aleix.cloud
 }
 ```
 **NOTE**
