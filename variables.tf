@@ -40,6 +40,3 @@ variable "dns_provider" {
   description = "DNS provider where the domain is registered."
 }
 
-variable "lambda_env" {
-  type = list
-}
