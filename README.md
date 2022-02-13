@@ -2,7 +2,7 @@
 
 This module configures Amazon SES to forward emails to an existing account (gmail or something). This module will configure the following resources:
 
-* DNS verification, DKIM and MX domains. (Supported: `cloudflare` and `aws`)
+--* DNS verification, DKIM and MX domains. (Supported: `cloudflare` and `aws`)--
 * SES rule set to save the incoming emails to S3 and to execute a Lambda.
 * Lambda that will forward the email from `sender` to `recipient`.
 
