@@ -99,7 +99,7 @@ resource "aws_s3_bucket" "emailBucket" {
 }
 
 resource "aws_s3_bucket_acl" "emailBucket" {
-  bucket     = aws_s3_bucket.emailBucket.id 
+  bucket = aws_s3_bucket.emailBucket.id
   acl = "private"
 }
 
