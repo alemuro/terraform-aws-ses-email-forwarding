@@ -94,7 +94,7 @@ resource "aws_lambda_function" "lambda_function" {
   }
 }
 
-resource "aws_s3_bucket" "$(var.s3_bucket)" {
+resource "aws_s3_bucket" "email_bucket" {
   bucket = "$(var.s3_bucket)"
 }
 
