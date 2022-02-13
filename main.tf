@@ -87,7 +87,7 @@ resource "aws_lambda_function" "lambda_function" {
     variables = {
       MailS3Bucket  = var.s3_bucket
       MailS3Prefix  = var.s3_bucket_prefix
-      MailSender    = var.mail_sender
+      MailSender    = "$(var.mail_sender"
       MailRecipient = var.mail_recipient
       Region        = var.aws_region
     }
@@ -152,7 +152,7 @@ resource "aws_ses_active_receipt_rule_set" "main" {
 resource "aws_ses_receipt_rule" "fw" {
   name          = var.prefix
   rule_set_name = local.rule_set_name
-  recipients    = var.mail_sender
+  recipients    = "${var.lambda_env}"
   enabled       = true
   scan_enabled  = false
 
