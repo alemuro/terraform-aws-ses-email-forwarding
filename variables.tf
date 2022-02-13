@@ -14,7 +14,7 @@ variable "s3_bucket_prefix" {
 }
 
 variable "lambda_env" {
-  type        = list
+  type        = list(string)
   description = "Email used to send messages from (when forwarding)"
 }
 
