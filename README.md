@@ -1,13 +1,16 @@
+forked from alemuro/terraform-aws-ses-email-forwarding
+
 # Terraform AWS SES Email Forwarding 
 
 This module configures Amazon SES to forward emails to an existing account (gmail or something). This module will configure the following resources:
 
---* DNS verification, DKIM and MX domains. (Supported: `cloudflare` and `aws`)--
 * SES rule set to save the incoming emails to S3 and to execute a Lambda.
 * Lambda that will forward the email from `sender` to `recipient`.
+* List of email addresses that can be forwarded to in `email_targets`
 
 This module implements the official solution by AWS: 
 https://aws.amazon.com/blogs/messaging-and-targeting/forward-incoming-email-to-an-external-destination/
+and the code from https://github.com/alemuro/terraform-aws-ses-email-forwarding
 
 ## Arguments
 
