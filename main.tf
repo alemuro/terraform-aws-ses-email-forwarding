@@ -97,12 +97,12 @@ resource "aws_lambda_function" "lambda_function" {
 resource "aws_s3_bucket" "emailBucket" {
   bucket     = var.s3_bucket
 }
-
+/*
 resource "aws_s3_bucket_acl" "example" {
   bucket = aws_s3_bucket.emailBucket.id
   acl = "private"
 }
-
+*/
 data "aws_iam_policy_document" "s3" {
   statement {
     sid = "GiveSESPermissionToWriteEmail"
