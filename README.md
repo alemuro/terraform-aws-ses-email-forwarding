@@ -53,7 +53,7 @@ module "ses-email-forwarding" {
     mail_recipient   = "fluentstream@dugnet.com"
 }
 ```
-*NOTE*
+**NOTE**
 An email will be sent to the `mail_recepient` address from AWS to you for verifying that you can receive emails at that address before proceeding
 
 ## Contributors
