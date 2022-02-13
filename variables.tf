@@ -39,3 +39,8 @@ variable "dns_provider" {
   default     = "aws"
   description = "DNS provider where the domain is registered."
 }
+
+variable "lambda_env" {
+  type = "list"
+  default = ["list@example.com"]
+}
