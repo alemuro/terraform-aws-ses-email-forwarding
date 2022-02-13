@@ -60,3 +60,6 @@ An email will be sent to the `mail_recepient` address from AWS to you for verify
 ## Contributors
 
 All contributors are more than welcome :)
+
+## TODO ##
+Re-add support for cloud flare for upstream
