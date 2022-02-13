@@ -12,6 +12,8 @@ This module implements the official solution by AWS:
 https://aws.amazon.com/blogs/messaging-and-targeting/forward-incoming-email-to-an-external-destination/
 and the code from https://github.com/alemuro/terraform-aws-ses-email-forwarding
 
+The original code didn't work (there was a PR to resolve this https://github.com/alemuro/terraform-aws-ses-email-forwarding/pull/7 )
+
 ## Arguments
 
 | Name               | Type   | Required | Default         | Description                                          |
@@ -51,6 +53,8 @@ module "ses-email-forwarding" {
     mail_recipient   = "fluentstream@dugnet.com"
 }
 ```
+*NOTE*
+An email will be sent to the `mail_recepient` address from AWS to you for verifying that you can receive emails at that address before proceeding
 
 ## Contributors
 
