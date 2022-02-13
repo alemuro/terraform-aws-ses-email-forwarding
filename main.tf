@@ -94,6 +94,15 @@ resource "aws_lambda_function" "lambda_function" {
   }
 }
 
+resource "aws_s3_bucket" "$(var.s3_bucket)" {
+  bucket = "$(var.s3_bucket)"
+}
+
+resource "aws_s3_bucket_acl" "email_bucket" {
+  bucket = "$(var.s3_bucket)"
+  acl = "private"
+}
+
 resource "aws_lambda_permission" "allow_ses" {
   statement_id  = "GiveSESPermissionToInvokeFunction"
   action        = "lambda:InvokeFunction"
