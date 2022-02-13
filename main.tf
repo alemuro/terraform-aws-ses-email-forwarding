@@ -94,11 +94,11 @@ resource "aws_lambda_function" "lambda_function" {
   }
 }
 
-resource "aws_s3_bucket" "email_bucket" {
+resource "aws_s3_bucket" "emailBucket" {
   bucket = "$(var.s3_bucket)"
 }
 
-resource "aws_s3_bucket_acl" "email_bucket" {
+resource "aws_s3_bucket_acl" "emailBucket" {
   bucket = "$(var.s3_bucket)"
   acl = "private"
 }
