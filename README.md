@@ -37,20 +37,13 @@ I can use this module to register this email through an existing email, and send
 
 ```
 module "ses-email-forwarding" {
-    source = "git@github.com:superdug/terraform-aws-ses-email-forwarding.git"
+   source = "git@github.com:superdug/terraform-aws-ses-email-forwarding.git"
 
     dns_provider     = "aws"
     domain           = "amiblocked.io"
     s3_bucket        = "amiblocked.io.emails"
     s3_bucket_prefix = "emails"
-    mail_targets     = [
-                            "test@amiblocked.io", 
-                            "administrator@amiblocked.io", 
-                            "hostmaster@amiblocked.io", 
-                            "postmaster@amiblocked.io", 
-                            "webmaster@amiblocked.io", 
-                            "admin@amiblocked.io"
-                    ]
+    mail_targets     = ["test@amiblocked.io", "administrator@amiblocked.io", "hostmaster@amiblocked.io", "postmaster@amiblocked.io", "webmaster@amiblocked.io", "admin@amiblocked.io"]
     mail_sender      = "postmaster@amiblocked.io"
     mail_recipient   = "fluentstream@dugnet.com"
 }
