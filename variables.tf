@@ -15,7 +15,7 @@ variable "s3_bucket_prefix" {
 
 variable "mail_sender" {
   type        = list(string)
-  description = "Email used to send messages from (when forwarding)"
+  description = "Email(s) used to send messages from (when forwarding)"
 }
 
 variable "mail_recipient" {
