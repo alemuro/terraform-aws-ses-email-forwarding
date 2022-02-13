@@ -12,12 +12,12 @@ variable "s3_bucket_prefix" {
   type        = string
   description = "Path inside the bucket where emails will be stored"
 }
-
+/*
 variable "mail_sender" {
   type        = list
   description = "Email used to send messages from (when forwarding)"
 }
-
+*/
 variable "mail_recipient" {
   type        = string
   description = "Email used to send messages to (when forwarding)"

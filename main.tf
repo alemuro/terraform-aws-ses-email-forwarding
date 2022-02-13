@@ -152,7 +152,7 @@ resource "aws_ses_active_receipt_rule_set" "main" {
 resource "aws_ses_receipt_rule" "fw" {
   name          = var.prefix
   rule_set_name = local.rule_set_name
-  recipients    = [var.mail_sender]
+  recipients    = "${var.lambda_env}"
   enabled       = true
   scan_enabled  = false
 
