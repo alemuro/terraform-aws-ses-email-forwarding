@@ -13,7 +13,7 @@ variable "s3_bucket_prefix" {
   description = "Path inside the bucket where emails will be stored"
 }
 
-variable "lambda_env" {
+variable "mail_sender" {
   type        = list(string)
   description = "Email used to send messages from (when forwarding)"
 }
