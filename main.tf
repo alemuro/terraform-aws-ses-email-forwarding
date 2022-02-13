@@ -98,7 +98,7 @@ resource "aws_s3_bucket" "emailBucket" {
   bucket     = var.s3_bucket
 }
 
-resource "aws_s3_bucket_acl" "example" {
+resource "aws_s3_bucket_acl" "emailBucket" {
   bucket     = aws_s3_bucket.emailBucket.id 
   acl = "private"
 }
