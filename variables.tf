@@ -15,7 +15,12 @@ variable "s3_bucket_prefix" {
 
 variable "mail_sender" {
   type        = string
-  description = "Email used to send messages from (when forwarding)"
+  description = "Email(s) used to send messages from (when forwarding)"
+}
+
+variable "mail_targets" {
+  type        = list(string)
+  description = "Email addresses that can be sent to"
 }
 
 variable "mail_recipient" {
@@ -39,3 +44,4 @@ variable "dns_provider" {
   default     = "aws"
   description = "DNS provider where the domain is registered."
 }
+

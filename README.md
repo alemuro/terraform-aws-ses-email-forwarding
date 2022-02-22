@@ -1,13 +1,19 @@
+forked from alemuro/terraform-aws-ses-email-forwarding
+
 # Terraform AWS SES Email Forwarding 
 
 This module configures Amazon SES to forward emails to an existing account (gmail or something). This module will configure the following resources:
 
-* DNS verification, DKIM and MX domains. (Supported: `cloudflare` and `aws`)
 * SES rule set to save the incoming emails to S3 and to execute a Lambda.
 * Lambda that will forward the email from `sender` to `recipient`.
+* List of email addresses that can be forwarded to in `email_targets`
+* register `email_recipient` with AWS SES authorized sender address
 
 This module implements the official solution by AWS: 
 https://aws.amazon.com/blogs/messaging-and-targeting/forward-incoming-email-to-an-external-destination/
+and the code from https://github.com/alemuro/terraform-aws-ses-email-forwarding
+
+The original code didn't work (there was a PR to resolve this https://github.com/alemuro/terraform-aws-ses-email-forwarding/pull/7 )
 
 ## Arguments
 
@@ -15,6 +21,7 @@ https://aws.amazon.com/blogs/messaging-and-targeting/forward-incoming-email-to-a
 |--------------------|--------|----------|-----------------|------------------------------------------------------|
 | `s3_bucket`        | String | Yes      |                 | S3 Bucket where emails will be stored                |
 | `s3_bucket_prefix` | String | Yes      |                 | Path inside the bucket where emails will be stored   |
+| `mail_targets`     | Liat   | Yes      |                 | Email addresses that can be sent to                  |
 | `mail_sender`      | String | Yes      |                 | Email used to send messages from (when forwarding)   |
 | `mail_recipient`   | String | Yes      |                 | Email used to send messages to (when forwarding)     |
 | `domain`           | String | Yes      |                 | Domain to configure (ex: aleix.cloud)                |
@@ -36,18 +43,23 @@ I can use this module to register this email through an existing email, and send
 
 ```
 module "ses-email-forwarding" {
-    source = "git@github.com:alemuro/terraform-ses-email-forwarding.git"
+   source = "git@github.com:superdug/terraform-aws-ses-email-forwarding.git"
 
-    dns_provider     = "cloudflare"
-    domain           = "aleix.cloud"
-    s3_bucket        = "amurtra"
+    dns_provider     = "aws"
+    domain           = "amiblocked.io"
+    s3_bucket        = "amiblocked.io.emails"
     s3_bucket_prefix = "emails"
-    mail_sender      = "hello@aleix.cloud"
-    mail_recipient   = "xxxxx@gmail.com"
-    aws_region       = "eu-west-1"
+    mail_targets     = ["test@amiblocked.io", "administrator@amiblocked.io", "hostmaster@amiblocked.io", "postmaster@amiblocked.io", "webmaster@amiblocked.io", "admin@amiblocked.io"]
+    mail_sender      = "postmaster@amiblocked.io"
+    mail_recipient   = "hello@aleix.cloud"
 }
 ```
+**NOTE**
+An email will be sent to the `mail_recepient` address from AWS to you for verifying that you can receive emails at that address before proceeding
 
 ## Contributors
 
 All contributors are more than welcome :)
+
+## TODO ##
+Re-add support for cloud flare for upstream

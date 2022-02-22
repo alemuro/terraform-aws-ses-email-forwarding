@@ -3,5 +3,4 @@ locals {
   rule_set_name  = "${var.prefix}-rules"
 
   use_aws        = var.dns_provider == "aws" ? true : false
-  use_cloudflare = var.dns_provider == "cloudflare" ? true : false
 }

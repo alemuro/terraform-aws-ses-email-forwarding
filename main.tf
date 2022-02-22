@@ -94,6 +94,43 @@ resource "aws_lambda_function" "lambda_function" {
   }
 }
 
+resource "aws_s3_bucket" "emailBucket" {
+  bucket     = var.s3_bucket
+}
+/*
+resource "aws_s3_bucket_acl" "example" {
+  bucket = aws_s3_bucket.emailBucket.id
+  acl = "private"
+}
+*/
+data "aws_iam_policy_document" "s3" {
+  statement {
+    sid = "GiveSESPermissionToWriteEmail"
+
+    effect = "Allow"
+
+    principals {
+      identifiers = ["ses.amazonaws.com"]
+      type        = "Service"
+    }
+
+    actions = ["s3:PutObject"]
+
+    resources = ["${aws_s3_bucket.emailBucket.arn}/*"]
+
+    condition {
+      test     = "StringEquals"
+      values   = [data.aws_caller_identity.current.account_id]
+      variable = "aws:Referer"
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "default" {
+  bucket = aws_s3_bucket.emailBucket.id
+  policy = data.aws_iam_policy_document.s3.json
+}
+
 resource "aws_lambda_permission" "allow_ses" {
   statement_id  = "GiveSESPermissionToInvokeFunction"
   action        = "lambda:InvokeFunction"
@@ -115,7 +152,7 @@ resource "aws_ses_active_receipt_rule_set" "main" {
 resource "aws_ses_receipt_rule" "fw" {
   name          = var.prefix
   rule_set_name = local.rule_set_name
-  recipients    = [var.mail_sender]
+  recipients    = var.mail_targets
   enabled       = true
   scan_enabled  = false
 
@@ -142,7 +179,8 @@ resource "aws_ses_domain_dkim" "dkim" {
 
 resource "aws_ses_domain_identity_verification" "verification" {
   domain = aws_ses_domain_identity.domain.id
-
-  depends_on = [cloudflare_record.verification]
 }
 
+resource "aws_ses_email_identity" "email" {
+  email = var.mail_recipient
+}
